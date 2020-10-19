@@ -1,0 +1,1 @@
+# making serializer file for future models

@@ -1,0 +1,22 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+prospector = "*"
+
+[packages]
+django = "*"
+django-extensions = "*"
+django-debug-toolbar = "*"
+werkzeug = "*"
+django-environ = "*"
+djangorestframework = "*"
+markdown = "*"
+django-filter = "*"
+djoser = "*"
+django-cors-headers = "*"
+
+[requires]
+python_version = "3.8"
