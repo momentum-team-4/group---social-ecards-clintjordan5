@@ -15,3 +15,11 @@ class CardSerializer(serializers.HyperlinkedModelSerializer):
             'date',   
         ]
         # url? id? author? message?
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            'follow'
+            'friends'
+        ]

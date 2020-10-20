@@ -12,20 +12,20 @@ class Card(models.Model):
 
 # models below are incomplete, still building/revising 
 class Message(models.Model):
-    # card (FK: Card)
-    # sender (FK: User)
-    # recipient(FK: User)
+    card = models.ForeignKey(to=Card, on_delete=models.CASCADE, related_name='cards', null=True) 
+    sender = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='users', null=True)
+    recipient = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='users', null=True)
 
 class User(models.Model):
-    follow = models.ManyToManyField('self', related_name='followers')
+    follow = models.ManyToManyField('self', related_name='followers', null=True)
     friends = models.ManyToManyField('self', symmetrical=True)
 
 class FriendRequest(models.Model):
-    proposing_user = models.ForeignKey(to=User)
-    accepting_user = models.ForeignKey (to=User)
+    proposing_user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='users', null=True)
+    accepting_user = models.ForeignKey (to=User, on_delete=models.CASCADE, related_name='users', null=True)
     # accepted (Boolean)
 
 
 class Comment(models.Model):
     author = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='comments', null=True)
-    card = models.ForeignKey(to=Card) 
+    card = models.ForeignKey(to=Card, on_delete=models.CASCADE, related_name='cards', null=True) 
