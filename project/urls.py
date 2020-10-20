@@ -17,6 +17,10 @@ from django.contrib import admin
 from django.conf import settings
 from django.urls import include, path
 from api import views as api_views
+from rest_framework.routers import DefaultRouter
+
+api_router = DefaultRouter()
+# api_router.register('api', api_views.APIViewSet, basename=api)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,6 +28,7 @@ urlpatterns = [
     path('example/', api_views.ExampleView.as_view(), name="example"),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
+    path('', include(api_router.urls)),
 
 ]
 

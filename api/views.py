@@ -1,7 +1,4 @@
 from django.shortcuts import render
-
-# Create your views here.
-
 from rest_framework.views import APIView, Response
 from rest_framework.permissions import IsAuthenticated
 
@@ -14,8 +11,8 @@ class ExampleView(APIView):
 
 # will need to make a user view, followed view, and display all cards
 
-class CardViewSet
+# class CardViewSet
 
-class FollowedViewSet
+# class FollowedViewSet
 
-class ListViewSet
+# class ListViewSet
