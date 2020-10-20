@@ -13,3 +13,9 @@ class ExampleView(APIView):
         return Response({"ok": True})
 
 # will need to make a user view, followed view, and display all cards
+
+class CardViewSet
+
+class FollowedViewSet
+
+class ListViewSet
