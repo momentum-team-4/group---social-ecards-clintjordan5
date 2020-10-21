@@ -17,6 +17,9 @@ markdown = "*"
 django-filter = "*"
 djoser = "*"
 django-cors-headers = "*"
+psycopg2 = "*"
+django-heroku = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.8"

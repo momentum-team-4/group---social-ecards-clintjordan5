@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from pathlib import Path
-
+import django_heroku
 import environ
 
 env = environ.Env(
@@ -157,3 +157,7 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+# Configure Django App for Heroku.
+django_heroku.settings(locals())
+del DATABASES['default']['OPTIONS']['sslmode']
