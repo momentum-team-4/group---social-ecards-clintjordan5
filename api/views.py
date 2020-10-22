@@ -5,7 +5,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 from django.core.exceptions import PermissionDenied
 from rest_framework import permissions
-from .serializers import CardSerializer, UserSerializer
+from .serializers import CardSerializer, FollowSerializer, FriendRequestSerializer, CommentSerializer
 from .models import Card
 
 class ExampleView(APIView):

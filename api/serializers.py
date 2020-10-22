@@ -7,14 +7,32 @@ class CardSerializer(serializers.HyperlinkedModelSerializer):
         model = Card
         fields = [
             'author',
+            'title',
+            'body',
             'date',   
         ]
-        # url? id? author? message?
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class FollowSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = [
-            'follow'
-            'friends'
+            'follow',
+            'friends',
+        ]
+
+class FriendRequestSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            'proposing_user',
+            'accepting_user',
+        ]
+
+class CommentSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            'author',
+            'card',
+            'comment_text',
         ]

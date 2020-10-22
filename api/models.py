@@ -7,10 +7,12 @@ from users.models import User
 
 class Card(models.Model):
     author = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='cards', null=True)
+    title = models.CharField (max_length=255, null=True, blank=True)
+    body = models.TextField (null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     # color, border style, options, customizitation etc
 
-class User(models.Model):
+class Follow(models.Model):
     follow = models.ManyToManyField('self', related_name='followers', null=True)
     friends = models.ManyToManyField('self', symmetrical=True)
     # for 1 or 2 way follow
@@ -23,3 +25,4 @@ class FriendRequest(models.Model):
 class Comment(models.Model):
     author = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='comments', null=True)
     card = models.ForeignKey(to=Card, on_delete=models.CASCADE, related_name='comments', null=True) 
+    comment_text = models.TextField (null=True, blank=True)
