@@ -2,7 +2,7 @@ from users.models import User
 from .models import Card
 from rest_framework import serializers
 
-class CardSerializer(serializers.HyperlinkedModelSerializer):
+class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Card
         fields = [
@@ -12,7 +12,7 @@ class CardSerializer(serializers.HyperlinkedModelSerializer):
             'date',   
         ]
 
-class FollowSerializer(serializers.HyperlinkedModelSerializer):
+class FollowSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
@@ -20,7 +20,7 @@ class FollowSerializer(serializers.HyperlinkedModelSerializer):
             'friends',
         ]
 
-class FriendRequestSerializer(serializers.HyperlinkedModelSerializer):
+class FriendRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
@@ -28,7 +28,7 @@ class FriendRequestSerializer(serializers.HyperlinkedModelSerializer):
             'accepting_user',
         ]
 
-class CommentSerializer(serializers.HyperlinkedModelSerializer):
+class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
@@ -36,3 +36,5 @@ class CommentSerializer(serializers.HyperlinkedModelSerializer):
             'card',
             'comment_text',
         ]
+
+# hyperlinked model serializer broke the internet. switched to modelserializer and fixed URL errors. 
