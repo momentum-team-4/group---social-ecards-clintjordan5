@@ -20,12 +20,12 @@ from api import views as api_views
 from rest_framework.routers import DefaultRouter
 
 api_router = DefaultRouter()
-# api_router.register('api', api_views.APIViewSet, basename=api)
+api_router.register('cards', api_views.CardViewSet, basename='card')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-    path('example/', api_views.ExampleView.as_view(), name="example"),
+    path('example/', api_views.ExampleView, name="example"),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
     path('', include(api_router.urls)),
