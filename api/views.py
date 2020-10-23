@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.core.exceptions import PermissionDenied
 from rest_framework import permissions
 from .serializers import CardSerializer, FollowSerializer, FriendRequestSerializer, CommentSerializer
-from .models import Card
+from .models import Card, Comment, FriendRequest, Follow
 
 class ExampleView(APIView):
     permission_classes = [IsAuthenticated]
@@ -37,6 +37,40 @@ class CardViewSet(ModelViewSet):
 
     def get_queryset(self):
         return Card.objects.filter(author=self.request.user)
+
+    def perform_create(self, serializer):
+        return serializer.save(author=self.request.user)
+
+class CommentViewSet(ModelViewSet):
+    serializer_class = CommentSerializer
+    permission_classes = [
+        IsAuthenticated,
+    ]
+
+    def get_queryset(self):
+        return Comment.objects.all()
+
+    def perform_create(self, serializer):
+        if not self.request.user.is_authenticated:
+            raise PermissionDenied()
+        serializer.save(user=self.request.user)
+
+class FollowViewSet(ModelViewSet):
+    serializer_class = FollowSerializer
+    permission_class = [IsOwnerOrReadOnly]
+
+    def get_queryset(self):
+        return Follow.objects.filter(author=self.request.user)
+
+    def perform_create(self, serializer):
+        return serializer.save(author=self.request.user)
+
+class FriendRequestViewSet(ModelViewSet):
+    serializer_class = FriendRequestSerializer
+    permission_class = [IsOwnerOrReadOnly]
+
+    def get_queryset(self):
+        return FriendRequest.objects.filter(author=self.request.user)
 
     def perform_create(self, serializer):
         return serializer.save(author=self.request.user)
