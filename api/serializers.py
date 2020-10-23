@@ -21,6 +21,7 @@ class FollowSerializer(serializers.ModelSerializer):
         ]
 
 class FriendRequestSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = FriendRequest
         fields = [

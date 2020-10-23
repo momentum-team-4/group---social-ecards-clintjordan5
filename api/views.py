@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.serializers import Serializer
 from rest_framework.views import APIView, Response
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS
 from django.core.exceptions import PermissionDenied
 from rest_framework import permissions
 from .serializers import CardSerializer, FollowSerializer, FriendRequestSerializer, CommentSerializer, UserSerializer
@@ -27,14 +27,14 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
             return True
-        if obj.user == request.user:
+        if obj.author == request.user:
             return True
 
         return False
 
 class CardViewSet(ModelViewSet):
     serializer_class = CardSerializer
-    permission_class = [IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly, IsAuthenticated]
 
     def get_queryset(self):
         return Card.objects.filter(author=self.request.user)
@@ -74,7 +74,7 @@ class FriendRequestViewSet(ModelViewSet):
         return FriendRequest.objects.all()
 
     def perform_create(self, serializer):
-        return serializer.save(author=self.request.user)
+        return serializer.save(proposing_user=self.request.user)
 
 class UserViewSet(ModelViewSet):
     serializer_class = UserSerializer
