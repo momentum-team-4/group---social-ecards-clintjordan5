@@ -5,8 +5,9 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 from django.core.exceptions import PermissionDenied
 from rest_framework import permissions
-from .serializers import CardSerializer, FollowSerializer, FriendRequestSerializer, CommentSerializer
+from .serializers import CardSerializer, FollowSerializer, FriendRequestSerializer, CommentSerializer, UserSerializer
 from .models import Card, Comment, FriendRequest, Follow
+from users.models import User
 
 class ExampleView(APIView):
     permission_classes = [IsAuthenticated]
@@ -60,26 +61,26 @@ class FollowViewSet(ModelViewSet):
     permission_class = [IsOwnerOrReadOnly]
 
     def get_queryset(self):
-        return Follow.objects.filter(author=self.request.user)
+        return Follow.objects.all()
 
     def perform_create(self, serializer):
-        return serializer.save(author=self.request.user)
+        return serializer.save(id=self.request.user)
 
 class FriendRequestViewSet(ModelViewSet):
     serializer_class = FriendRequestSerializer
     permission_class = [IsOwnerOrReadOnly]
 
     def get_queryset(self):
-        return FriendRequest.objects.filter(author=self.request.user)
+        return FriendRequest.objects.all()
 
     def perform_create(self, serializer):
         return serializer.save(author=self.request.user)
 
-# class UserViewSet(ModelViewSet):
-#     serializer_class = UserSerializer
-#     permission_classes = [
-#         IsAuthenticated,
-#     ]
+class UserViewSet(ModelViewSet):
+    serializer_class = UserSerializer
+    permission_classes = [
+        IsAuthenticated,
+    ]
 
-#     def get_queryset(self):
-#         return User.objects.all()
+    def get_queryset(self):
+        return User.objects.all()
