@@ -75,11 +75,11 @@ class FriendRequestViewSet(ModelViewSet):
     def perform_create(self, serializer):
         return serializer.save(author=self.request.user)
 
-class UserViewSet(ModelViewSet):
-    serializer_class = UserSerializer
-    permission_classes = [
-        IsAuthenticated,
-    ]
+# class UserViewSet(ModelViewSet):
+#     serializer_class = UserSerializer
+#     permission_classes = [
+#         IsAuthenticated,
+#     ]
 
-    def get_queryset(self):
-        return User.objects.all()
+#     def get_queryset(self):
+#         return User.objects.all()
