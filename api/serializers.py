@@ -37,4 +37,7 @@ class CommentSerializer(serializers.ModelSerializer):
             'comment_text',
         ]
 
+# class UserSerializer(serializers.ModelSerializer):
+#     cards = serializers.ModelSerializer(many=True, view_name='card_detail')
+
 # hyperlinked model serializer broke the internet. switched to modelserializer and fixed URL errors. 
