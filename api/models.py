@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models.fields.related import ManyToManyField
 from users.models import User
-# from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.models import Token
 
 # Create your models here.
 
