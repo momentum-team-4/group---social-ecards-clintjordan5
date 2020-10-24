@@ -3,6 +3,7 @@ from .models import Card, Comment, Follow, FriendRequest
 from rest_framework import serializers
 
 class CardSerializer(serializers.ModelSerializer):
+    author = serializers.StringRelatedField(read_only=True)
     class Meta:
         model = Card
         fields = [
