@@ -26,7 +26,7 @@ class FollowSerializer(serializers.ModelSerializer):
         ]
 
 class FriendRequestSerializer(serializers.ModelSerializer):
-
+    proposing_user = serializers.StringRelatedField(read_only=True)
     class Meta:
         model = FriendRequest
         fields = [
@@ -35,6 +35,7 @@ class FriendRequestSerializer(serializers.ModelSerializer):
         ]
 
 class CommentSerializer(serializers.ModelSerializer):
+    author = serializers.StringRelatedField(read_only=True)
     class Meta:
         model = Comment
         fields = [

@@ -38,7 +38,7 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 class IsPostAuthor(BasePermission):
     def has_permission(self, request, view):
         return True
-        
+
     def has_object_permission(self, request, view, obj):
         if request.method in SAFE_METHODS:
             return True
@@ -77,7 +77,7 @@ class CommentViewSet(ModelViewSet):
     def perform_create(self, serializer):
         if not self.request.user.is_authenticated:
             raise PermissionDenied()
-        serializer.save(user=self.request.user)
+        serializer.save(author=self.request.user)
 
 class FollowViewSet(ModelViewSet):
     serializer_class = FollowSerializer
@@ -87,7 +87,7 @@ class FollowViewSet(ModelViewSet):
         return Follow.objects.all()
 
     def perform_create(self, serializer):
-        return serializer.save(id=self.request.user)
+        return serializer.save(author=self.request.user)
 
 class FriendRequestViewSet(ModelViewSet):
     serializer_class = FriendRequestSerializer
