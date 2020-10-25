@@ -3,6 +3,7 @@ from rest_framework.serializers import Serializer
 from rest_framework.views import APIView, Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS
+from rest_framework.decorators import action
 from django.core.exceptions import PermissionDenied
 from rest_framework import permissions
 from .serializers import CardSerializer, FollowSerializer, FriendRequestSerializer, CommentSerializer, UserSerializer
@@ -41,6 +42,16 @@ class CardViewSet(ModelViewSet):
 
     def perform_create(self, serializer):
         return serializer.save(author=self.request.user)
+
+    @action(detail=False, methods=['get'])
+    def all_cards(self, request):
+        cards = Card.objects.all()
+        page = self.paginate_queryset(cards)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+        serializer = CardSerializer(cards, many=True, context={'request': request})
+        return Response(serializer.data)
 
 class CommentViewSet(ModelViewSet):
     serializer_class = CommentSerializer

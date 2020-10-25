@@ -10,7 +10,11 @@ class CardSerializer(serializers.ModelSerializer):
             'author',
             'title',
             'body',
-            'date',   
+            'date',
+            'color',
+            'border',
+            'font',
+            'image',   
         ]
 
 class FollowSerializer(serializers.ModelSerializer):

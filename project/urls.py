@@ -18,6 +18,7 @@ from django.conf import settings
 from django.urls import include, path
 from api import views as api_views
 from rest_framework.routers import DefaultRouter
+from django.conf.urls.static import static
 
 api_router = DefaultRouter()
 api_router.register('cards', api_views.CardViewSet, basename='card')
