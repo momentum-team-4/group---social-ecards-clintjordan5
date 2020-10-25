@@ -9,6 +9,8 @@ from rest_framework import permissions
 from .serializers import CardSerializer, FollowSerializer, FriendRequestSerializer, CommentSerializer, UserSerializer
 from .models import Card, Comment, FriendRequest, Follow
 from users.models import User
+from rest_framework.parsers import JSONParser, FileUploadParser
+from rest_framework.exceptions import ParseError
 
 class ExampleView(APIView):
     permission_classes = [IsAuthenticated]
@@ -32,6 +34,16 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
             return True
 
         return False
+
+class IsPostAuthor(BasePermission):
+    def has_permission(self, request, view):
+        return True
+        
+    def has_object_permission(self, request, view, obj):
+        if request.method in SAFE_METHODS:
+            return True
+
+        return request.user == obj.author
 
 class CardViewSet(ModelViewSet):
     serializer_class = CardSerializer
@@ -95,3 +107,18 @@ class UserViewSet(ModelViewSet):
 
     def get_queryset(self):
         return User.objects.all()
+
+class PostViewSet(ModelViewSet):
+    permission_classes = [IsAuthenticated, IsPostAuthor]
+    parser_classes = [JSONParser, FileUploadParser]
+
+    @action(detail=True, methods=['PUT'])
+    def image(self, request, pk, format=None):
+        if 'file' not in request.data:
+            raise ParseError('Empty content')
+
+        file = request.data['file']
+        post = self.get_object()
+
+        post.image.save(file.name, file, save=True)
+        return Response(status=201)

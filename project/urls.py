@@ -25,6 +25,7 @@ api_router.register('cards', api_views.CardViewSet, basename='card')
 api_router.register('comments', api_views.CommentViewSet, basename='comment')
 api_router.register('followers', api_views.FollowViewSet, basename='follow')
 api_router.register('friend_requests', api_views.FriendRequestViewSet, basename='FriendRequest')
+api_router.register('posts', api_views.PostViewSet, basename='post')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,8 +34,11 @@ urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
     path('', include(api_router.urls)),
+    static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 
 ]
+
+
 
 if settings.DEBUG:
     import debug_toolbar
