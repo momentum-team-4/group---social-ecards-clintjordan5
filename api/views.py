@@ -85,9 +85,10 @@ class FollowViewSet(ModelViewSet):
 
     def get_queryset(self):
         return Follow.objects.all()
+        # should filter objects instead?
 
     def perform_create(self, serializer):
-        return serializer.save(author=self.request.user)
+        return serializer.save(followed_user=self.request.user)
 
 class FriendRequestViewSet(ModelViewSet):
     serializer_class = FriendRequestSerializer

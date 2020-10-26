@@ -46,8 +46,8 @@ class Card(models.Model):
 
 
 class Follow(models.Model):
-    follow = models.ManyToManyField("self", related_name="followers", null=True)
-    friends = models.ManyToManyField("self", symmetrical=True)
+    followed_users = models.ManyToManyField("self", related_name="followers", null=True)
+    # friends = models.ManyToManyField("self", symmetrical=True)
     # for 1 or 2 way follow
 
 
