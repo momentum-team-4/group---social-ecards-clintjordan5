@@ -97,7 +97,6 @@ class FollowViewSet(ModelViewSet):
 
     def get_queryset(self):
         return Follow.objects.all()
-        # should filter objects instead?
 
     def perform_create(self, serializer):
         return serializer.save(followed_user=self.request.user)
@@ -120,18 +119,3 @@ class UserViewSet(ModelViewSet):
 
     def get_queryset(self):
         return User.objects.all()
-
-# class PostViewSet(ModelViewSet):
-#     permission_classes = [IsAuthenticated, IsPostAuthor]
-#     parser_classes = [JSONParser, FileUploadParser]
-
-#     @action(detail=True, methods=['PUT'])
-#     def image(self, request, pk, format=None):
-#         if 'file' not in request.data:
-#             raise ParseError('Empty content')
-
-#         file = request.data['file']
-#         post = self.get_object()
-
-#         post.image.save(file.name, file, save=True)
-#         return Response(status=201)

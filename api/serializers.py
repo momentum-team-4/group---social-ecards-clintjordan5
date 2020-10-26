@@ -52,6 +52,4 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["username", "id", "url", "cards", "comments"]
-
-# hyperlinked model serializer caused issues. switched to modelserializer and fixed URL errors. 
+        fields = ["username", "id", "url", "cards", "comments"] 
