@@ -42,8 +42,8 @@ class Follow(models.Model):
 
 
 class FriendRequest(models.Model):
-    proposing_user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="friendrequests", null=True)
-    accepting_user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="acceptedrequests", null=True)
+    proposing_user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="friendrequest", null=True)
+    following = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="following", null=True)
 
 
 class Comment(models.Model):

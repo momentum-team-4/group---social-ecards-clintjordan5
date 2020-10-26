@@ -32,7 +32,7 @@ class FriendRequestSerializer(serializers.ModelSerializer):
         model = FriendRequest
         fields = [
             'proposing_user',
-            'accepting_user',
+            'following',
         ]
 
 class CommentSerializer(serializers.ModelSerializer):
