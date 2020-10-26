@@ -7,6 +7,7 @@ class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Card
         fields = [
+            'url',
             'author',
             'title',
             'body',
@@ -21,6 +22,7 @@ class FollowSerializer(serializers.ModelSerializer):
     class Meta:
         model = Follow
         fields = [
+            'url',
             'followed_users',
         ]
 
@@ -38,6 +40,7 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = [
+            'url',
             'author',
             'card',
             'comment_text',

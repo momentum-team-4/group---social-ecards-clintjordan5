@@ -48,6 +48,7 @@ class IsPostAuthor(BasePermission):
 class CardViewSet(ModelViewSet):
     serializer_class = CardSerializer
     permission_classes = [IsOwnerOrReadOnly, IsAuthenticated]
+    parser_classes = [JSONParser, FileUploadParser]
 
     def get_queryset(self):
         return Card.objects.filter(author=self.request.user)
@@ -64,6 +65,17 @@ class CardViewSet(ModelViewSet):
             return self.get_paginated_response(serializer.data)
         serializer = CardSerializer(cards, many=True, context={'request': request})
         return Response(serializer.data)
+
+    @action(detail=True, methods=['PUT'])
+    def image(self, request, pk, format=None):
+        if 'file' not in request.data:
+            raise ParseError('Empty content')
+
+        file = request.data['file']
+        post = self.get_object()
+
+        post.image.save(file.name, file, save=True)
+        return Response(status=201)
 
 class CommentViewSet(ModelViewSet):
     serializer_class = CommentSerializer
@@ -109,17 +121,17 @@ class UserViewSet(ModelViewSet):
     def get_queryset(self):
         return User.objects.all()
 
-class PostViewSet(ModelViewSet):
-    permission_classes = [IsAuthenticated, IsPostAuthor]
-    parser_classes = [JSONParser, FileUploadParser]
+# class PostViewSet(ModelViewSet):
+#     permission_classes = [IsAuthenticated, IsPostAuthor]
+#     parser_classes = [JSONParser, FileUploadParser]
 
-    @action(detail=True, methods=['PUT'])
-    def image(self, request, pk, format=None):
-        if 'file' not in request.data:
-            raise ParseError('Empty content')
+#     @action(detail=True, methods=['PUT'])
+#     def image(self, request, pk, format=None):
+#         if 'file' not in request.data:
+#             raise ParseError('Empty content')
 
-        file = request.data['file']
-        post = self.get_object()
+#         file = request.data['file']
+#         post = self.get_object()
 
-        post.image.save(file.name, file, save=True)
-        return Response(status=201)
+#         post.image.save(file.name, file, save=True)
+#         return Response(status=201)
