@@ -9,12 +9,14 @@ COLOR_OPTIONS = (
     ("blue", "blue"),
     ("red", "red"),
     ("none", "none"),
+    ('', ''),
 )
 
 BORDER_OPTIONS = (
     ("solid", "solid"),
     ("dotted", "dotted"),
     ("none", "none"),
+    ('', ''),
 )
 
 FONT_OPTIONS = (
@@ -22,6 +24,7 @@ FONT_OPTIONS = (
     ("Helvetica", "Helvetica"),
     ("Open Sans", "Open Sans"),
     ("none", "none"),
+    ('', ''),
 )
 
 
@@ -44,6 +47,7 @@ class Card(models.Model):
 class FollowedUsers(models.Model):
     proposing_user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="follow_request", null=True)
     following = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="following", null=True)
+    followed_user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="followed_user", null=True)
 
 
 class Comment(models.Model):

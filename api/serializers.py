@@ -1,3 +1,4 @@
+from re import T
 from users.models import User
 from .models import Card, Comment, FollowedUsers
 from rest_framework import serializers
@@ -28,11 +29,13 @@ class CardSerializer(serializers.ModelSerializer):
 
 class FollowedUserSerializer(serializers.ModelSerializer):
     proposing_user = serializers.StringRelatedField(read_only=True)
+    following= serializers.StringRelatedField(read_only=True)
     class Meta:
         model = FollowedUsers
         fields = [
             'proposing_user',
             'following',
+            'followed_user',
         ]
 
 class CommentSerializer(serializers.ModelSerializer):
