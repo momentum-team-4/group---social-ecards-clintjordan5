@@ -23,8 +23,7 @@ from django.conf.urls.static import static
 api_router = DefaultRouter()
 api_router.register('cards', api_views.CardViewSet, basename='card')
 api_router.register('comments', api_views.CommentViewSet, basename='comment')
-api_router.register('followed_users', api_views.FollowViewSet, basename='follow')
-api_router.register('following', api_views.FollowedUserViewSet, basename='followedusers')
+api_router.register('following', api_views.FollowedUserViewSet, basename='followeduser')
 
 
 urlpatterns = [

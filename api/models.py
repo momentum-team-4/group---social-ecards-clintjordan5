@@ -36,13 +36,13 @@ class Card(models.Model):
     image = models.ImageField(upload_to="post_images/", null=True, blank=True)
 
 
-class Follow(models.Model):
-    followed_users = models.ManyToManyField("self", related_name="followers", null=True)
-    # friends = models.ManyToManyField("self", symmetrical=True)
+# class Follow(models.Model):
+#     followed_users = models.ManyToManyField("self", related_name="followers", null=True)
+#     # friends = models.ManyToManyField("self", symmetrical=True)
 
 
 class FollowedUsers(models.Model):
-    proposing_user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="friendrequest", null=True)
+    proposing_user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="follow_request", null=True)
     following = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="following", null=True)
 
 
