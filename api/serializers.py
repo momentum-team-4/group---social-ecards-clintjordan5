@@ -1,5 +1,5 @@
 from users.models import User
-from .models import Card, Comment, Follow, FriendRequest
+from .models import Card, Comment, Follow, FollowedUsers
 from rest_framework import serializers
 
 class CardSerializer(serializers.ModelSerializer):
@@ -26,10 +26,10 @@ class FollowSerializer(serializers.ModelSerializer):
             'followed_users',
         ]
 
-class FriendRequestSerializer(serializers.ModelSerializer):
+class FollowedUserSerializer(serializers.ModelSerializer):
     proposing_user = serializers.StringRelatedField(read_only=True)
     class Meta:
-        model = FriendRequest
+        model = FollowedUsers
         fields = [
             'proposing_user',
             'following',

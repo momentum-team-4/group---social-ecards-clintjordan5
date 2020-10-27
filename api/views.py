@@ -6,8 +6,8 @@ from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_MET
 from rest_framework.decorators import action
 from django.core.exceptions import PermissionDenied
 from rest_framework import permissions
-from .serializers import CardSerializer, FollowSerializer, FriendRequestSerializer, CommentSerializer, UserSerializer
-from .models import Card, Comment, FriendRequest, Follow
+from .serializers import CardSerializer, FollowSerializer, FollowedUserSerializer, CommentSerializer, UserSerializer
+from .models import Card, Comment, FollowedUsers, Follow
 from users.models import User
 from rest_framework.parsers import JSONParser, FileUploadParser
 from rest_framework.exceptions import ParseError
@@ -101,12 +101,12 @@ class FollowViewSet(ModelViewSet):
     def perform_create(self, serializer):
         return serializer.save(followed_user=self.request.user)
 
-class FriendRequestViewSet(ModelViewSet):
-    serializer_class = FriendRequestSerializer
+class FollowedUserViewSet(ModelViewSet):
+    serializer_class = FollowedUserSerializer
     permission_class = [IsOwnerOrReadOnly]
 
     def get_queryset(self):
-        return FriendRequest.objects.all()
+        return FollowedUsers.objects.all()
 
     def perform_create(self, serializer):
         return serializer.save(proposing_user=self.request.user)

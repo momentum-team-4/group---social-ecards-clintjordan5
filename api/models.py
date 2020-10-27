@@ -41,7 +41,7 @@ class Follow(models.Model):
     # friends = models.ManyToManyField("self", symmetrical=True)
 
 
-class FriendRequest(models.Model):
+class FollowedUsers(models.Model):
     proposing_user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="friendrequest", null=True)
     following = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="following", null=True)
 
