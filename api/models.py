@@ -20,9 +20,9 @@ BORDER_OPTIONS = (
 )
 
 FONT_OPTIONS = (
-    ("Times New Roman", "Times New Roman"),
-    ("Helvetica", "Helvetica"),
-    ("Open Sans", "Open Sans"),
+    ("Small", "Small"),
+    ("Medium", "Medium"),
+    ("Large", "Large"),
     ("none", "none"),
     ('', ''),
 )
