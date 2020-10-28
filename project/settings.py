@@ -165,6 +165,8 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
+from corsheaders.defaults import default_headers
+CORS_ALLOW_HEADERS = list(default_headers) + ["content-disposition",]
 
 # Configure Django App for Heroku.
 django_heroku.settings(locals())
