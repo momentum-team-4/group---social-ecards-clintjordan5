@@ -48,6 +48,8 @@ class FollowedUsers(models.Model):
     proposing_user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="follow_request", null=True)
     following = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="following", null=True)
     followed_user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="followed_user", null=True)
+    class Meta: 
+        verbose_name = 'followed user'
 
 
 class Comment(models.Model):

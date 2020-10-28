@@ -29,13 +29,12 @@ class CardSerializer(serializers.ModelSerializer):
 
 class FollowedUserSerializer(serializers.ModelSerializer):
     proposing_user = serializers.StringRelatedField(read_only=True)
-    following= serializers.StringRelatedField(read_only=True)
+    following= serializers.SlugRelatedField(slug_field='username', queryset=User.objects.all())
     class Meta:
         model = FollowedUsers
         fields = [
             'proposing_user',
             'following',
-            'followed_user',
         ]
 
 class CommentSerializer(serializers.ModelSerializer):

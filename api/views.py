@@ -11,6 +11,8 @@ from .models import Card, Comment, FollowedUsers
 from users.models import User
 from rest_framework.parsers import JSONParser, FileUploadParser
 from rest_framework.exceptions import ParseError
+from django.views.generic import ListView
+
 
 class ExampleView(APIView):
     permission_classes = [IsAuthenticated]
